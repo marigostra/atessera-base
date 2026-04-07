@@ -1,0 +1,59 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.math-inline svg {
+  display: inline-block;
+}
+
+.math-block {
+  margin: 1.5em 0;
+  text-align: center;
+}
+
+.math-block svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.math-block .eq-number {
+  display: inline-block;
+  margin-left: 1em;
+}
+
+.ref {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.ref:hover {
+  color: #004499;
+}
+
+.math-error {
+  color: red;
+  background: #ffeeee;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+code {
+  background: #f4f4f4;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+pre {
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+ul, ol {
+  padding-left: 2em;
+}

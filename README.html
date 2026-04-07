@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Converted Document</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.math-inline svg {
+  display: inline-block;
+}
+
+.math-block {
+  margin: 1.5em 0;
+  text-align: center;
+}
+
+.math-block svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.math-block .eq-number {
+  display: inline-block;
+  margin-left: 1em;
+}
+
+.ref {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.ref:hover {
+  color: #004499;
+}
+
+.math-error {
+  color: red;
+  background: #ffeeee;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+code {
+  background: #f4f4f4;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+pre {
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+ul, ol {
+  padding-left: 2em;
+}
+</style>
+</head>
+<body>
+<h1>Atessera-Base - Markdown to HTML/TeX Converter with Math SVG Support</h1>
+<h2>About</h2>
+<p>This tool converts Markdown documents with mathematical formulas to HTML or TeX formats. Features:</p>
+<ul>
+<li>Inline formulas: <code>[$ ... ]</code></li>
+<li>Block formulas: <code>$$ ... $$</code></li>
+<li>Block formulas with labels for references: <code>$$ ... $$(label)</code></li>
+<li>Converts math formulas to SVG for HTML output</li>
+<li>Generates TeX for scientific publications</li>
+</ul>
+<h2>Dependencies</h2>
+<h3>1. JDK 17</h3>
+<p>Download and install JDK 17:
+<a href="https://adoptium.net/temurin/releases?version=17&amp;os=any&amp;arch=any">https://adoptium.net/temurin/releases?version=17&amp;os=any&amp;arch=any</a></p>
+<h3>2. TeX Live</h3>
+<p>Install TeX Live:
+<a href="https://tug.org/texlive/">https://tug.org/texlive/</a></p>
+<h3>3. Gradle</h3>
+<p>Install Gradle:
+<a href="https://docs.gradle.org/current/userguide/installation.html">https://docs.gradle.org/current/userguide/installation.html</a></p>
+<h2>Build</h2>
+<pre><code class="language-bash">gradle build
+</code></pre>
+<h2>Run</h2>
+<h3>Convert to HTML (with SVG formulas)</h3>
+<pre><code class="language-bash">gradle run --args=&quot;-i example.md -o output.html -f html&quot;
+</code></pre>
+<h3>Convert to TeX</h3>
+<pre><code class="language-bash">gradle run --args=&quot;-i example.md -o output.tex -f tex&quot;
+</code></pre>
+<h3>Command line options</h3>
+<ul>
+<li><code>-i, --input</code>- Input Markdown file path</li>
+<li><code>-o, --output</code> - Output file path</li>
+<li><code>-f, --format</code> - Output format: <code>tex</code> or <code>html</code></li>
+<li><code>--keep-temp</code> - Keep temporary files for debugging (HTML only)</li>
+<li><code>-h, --help</code> - Show help</li>
+</ul>
+<h2>Syntax</h2>
+<ul>
+<li><strong>Inline formulas:</strong> <code>[$ ... ]</code></li>
+<li><strong>Block formulas:</strong> <code>$$ ... $$</code></li>
+<li><strong>Block formulas with label:</strong> <code>$$ ... $$(label)</code></li>
+<li><strong>Reference to formula:</strong> <code>[@label]</code> (displays as formula number)</li>
+</ul>
+<h2>License</h2>
+<p>BUSL-1.1</p>
+
+</body>
+</html>
