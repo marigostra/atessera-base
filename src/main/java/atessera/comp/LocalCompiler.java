@@ -19,12 +19,49 @@ import static org.apache.commons.io.IOUtils.*;
 import static java.nio.file.Files.*;
 import static atessera.util.TextUtils.*;
 
+/**
+ * Default {@link Compiler} implementation that executes commands locally
+ * in an isolated temporary directory.
+ *
+ * <p>{@code LocalCompiler} performs the following steps for each
+ * {@link CompilationTask}:</p>
+ *
+ * <ol>
+ *   <li>Creates a temporary working directory via {@link TempDir}.</li>
+ *   <li>Writes all text and binary source files into that directory.</li>
+ *   <li>Executes the task's shell commands sequentially. Each command's
+ *       stdout and stderr are captured in separate threads (via
+ *       {@link ShellCmd}) to prevent deadlocks.</li>
+ *   <li>If a command fails (non-zero exit code), collects the files
+ *       listed in {@link CompilationTask#getSaveTextFilesOnFailure()
+ *       saveTextFilesOnFailure} and returns immediately.</li>
+ *   <li>If all commands succeed, collects the files listed in
+ *       {@code saveTextFilesOnSuccess} and
+ *       {@code saveBinaryFilesOnSuccess}.</li>
+ *   <li>Cleans up the temporary directory (via try-with-resources).</li>
+ * </ol>
+ *
+ * <p>In case of an internal exception (e.g. I/O error), the method sets
+ * the exit code to {@code -1}, captures the stack trace in the result,
+ * and returns the result object; it does <em>not</em> throw.</p>
+ *
+ * @see TempDir
+ * @see ShellCmd
+ */
 public final class LocalCompiler implements Compiler
 {
     static private final Logger log = LogManager.getLogger();
     static private String
 	CHARSET = "UTF-8";
 
+    /**
+     * Executes the compilation task in a local temporary directory.
+     *
+     * @param task the compilation task to execute; must not be {@code null}
+     * @return the compilation result; never {@code null} in normal
+     *         operation (even on failure, a result with a non-zero exit
+     *         code is returned)
+     */
     @Override public CompilationResult compile(CompilationTask task)
     {
 	final var res = new CompilationResult();
