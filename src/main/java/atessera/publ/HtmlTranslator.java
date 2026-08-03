@@ -9,6 +9,7 @@ import java.io.*;
 
 import atessera.json.*;
 import atessera.markdown.*;
+import atessera.markdown.blocks.*;
 
 import static java.util.Objects.*;
 import static java.util.stream.Collectors.*;
@@ -180,7 +181,7 @@ static final int
 		    }
 				    return null;
 		}
-		@Override protected String render(MathBlockDefinition math)
+		@Override public String render(MathBlockDefinition math)
 		{
 		    if (requireNonNullElse(math.getLabel(), "").isEmpty())
 			return "";
@@ -190,7 +191,7 @@ static final int
 						eqNum.set(eqNum.get() + 1);
 		    return "";
 		}
-		@Override protected String render(LabelDefinition label)
+		@Override public String render(Label label)
 		{
 		    if (requireNonNullElse(label.getLabel(), "").trim().isEmpty())
 			return "";

@@ -21,9 +21,11 @@ public final class PublicationContent
     public enum SectionType {MARKDOWN, LATEX, EQUATION, TABLE, LISTING, METAPOST, GNUPLOT, PLANTUML, GRAPHVIZ_DOT, GRAPHVIZ_NEATO, GRAPHVIZ_TWOPI, GRAPHVIZ_CIRCO};
 
     private Type type;
-    private String /*subject,*/ title, subtitle, authors, date, location;
+    private String outFile;
+    private String title, subtitle, authors, date, location;
     private String published, org, keywords; //mostly for papers and proceedings
         private String isbn, copyright, udk, bbk;
+    private boolean tocBegin, tocEnd;
     
     private String stGroup, spNum, spName;
     private String svName, svDegree, svRank;

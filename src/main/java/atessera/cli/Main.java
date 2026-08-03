@@ -9,7 +9,7 @@ import atessera.markdown.MathDefinition;
 import atessera.markdown.MathBlockDefinition;
 import atessera.markdown.CiteReference;
 import atessera.markdown.Reference;
-import atessera.markdown.LabelDefinition;
+import atessera.markdown.blocks.Label;
 import atessera.markdown.AdvImageDefinition;
 import atessera.util.SvgGenerator;
 
@@ -107,12 +107,12 @@ public class Main {
         Set<LatexTarget.Features> features = EnumSet.allOf(LatexTarget.Features.class);
         LatexTarget target = new LatexTarget(features) {
             @Override
-            protected String render(MathDefinition math) {
+            public String render(MathDefinition math) {
                 return "$" + math.getText() + "$";
             }
             
             @Override
-            protected String render(MathBlockDefinition math) {
+            public String render(MathBlockDefinition math) {
                 if (math.getType() == MathBlockDefinition.Type.EQUATION) {
                     if (math.getLabel() != null && !math.getLabel().isEmpty()) {
                         return "\\begin{equation}\n" + math.getText() + "\n\\label{" + math.getLabel() + "}\n\\end{equation}\n";
@@ -125,12 +125,12 @@ public class Main {
             }
             
             @Override
-            protected String render(CiteReference citeRef) {
+            public String render(CiteReference citeRef) {
                 return "\\cite{" + citeRef.getRef() + "}";
             }
             
             @Override
-            protected String render(Reference ref) {
+            public String render(Reference ref) {
                 if (ref.getType() == Reference.Type.PAGE) {
                     return "\\pageref{" + ref.getRef() + "}";
                 } else {
@@ -139,12 +139,12 @@ public class Main {
             }
             
             @Override
-            protected String render(LabelDefinition label) {
+            public String render(Label label) {
                 return "\\label{" + label.getLabel() + "}\n";
             }
             
             @Override
-            protected String render(AdvImageDefinition advImage) {
+            public String render(AdvImageDefinition advImage) {
                 return "\\begin{figure}[h]\n\\centering\n\\includegraphics[width=0.8\\textwidth]{" + 
                        advImage.getSrc() + "}\n\\caption{" + advImage.getAlt() + 
                        (advImage.getComment() != null && !advImage.getComment().isEmpty() ? 
@@ -152,7 +152,7 @@ public class Main {
             }
             
             @Override
-            protected String renderHeadingOpening(int level) {
+            public String renderHeadingOpening(int level) {
                 switch(level) {
                     case 1: return "\\chapter{";
                     case 2: return "\\section{";
@@ -168,8 +168,8 @@ public class Main {
     
     private static String processToHtml(String content) {
         Set<HtmlTarget.Features> features = EnumSet.allOf(HtmlTarget.Features.class);
-        HtmlTarget target = new HtmlTarget(features, true);
+        HtmlTarget target = new HtmlTarget(features, Collections.emptyList(), true);
         
-        return target.parseWithStyle(content);
+        return "FIXME"; //target.parseWithStyle(content);
     }
 }
