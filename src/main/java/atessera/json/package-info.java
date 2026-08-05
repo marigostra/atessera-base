@@ -2,7 +2,7 @@
 // Copyright 2024-2026 Michael Pozhidaev <msp@luwrain.org>
 
 /**
- * Provides the document model classes for Alpha Tessera Base.
+ * Provides the document model classes.
  *
  * <p>This package defines the structured descriptions of publications and
  * presentations that serve as the primary input format for the entire

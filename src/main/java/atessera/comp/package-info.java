@@ -2,7 +2,7 @@
 // Copyright 2024-2026 Michael Pozhidaev <msp@luwrain.org>
 
 /**
- * Provides the compilation subsystem for Alpha Tessera Base.
+ * Provides the compilation subsystem.
  *
  * <p>This package encapsulates the process of invoking external compilers and
  * tools (such as {@code pdflatex}, {@code mpost}, and {@code gnuplot}) in
