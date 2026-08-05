@@ -42,7 +42,7 @@ tasks.named('javadoc') {
         docTitle = 'Alpha Tessera Base'
         windowTitle = 'Alpha Tessera Base'
         header = 'Alpha Tessera Base'
-        bottom = '(c) 2024-2026 Michael Pozhidaev &lt;msp@luwrain.org&gt;'
+        bottom = '&copy; 2024&ndash;2026 Michael Pozhidaev &lt;msp@luwrain.org&gt;'
         stylesheetFile = file('javadoc.css')
     }
 }
