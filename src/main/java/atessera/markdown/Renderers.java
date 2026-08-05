@@ -17,4 +17,6 @@ public interface Renderers
     String render(Reference ref);
     String renderBegin(MultiBlock block);
     String renderEnd(MultiBlock block);
+        String renderBegin(BibItem bibItem);
+    String renderEnd(BibItem bibItem);
 }

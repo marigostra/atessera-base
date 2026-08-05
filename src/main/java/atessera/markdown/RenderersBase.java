@@ -56,5 +56,15 @@ public class RenderersBase implements Renderers
     {
 	return "";
     }
+
+                @Override public String renderBegin(BibItem bibItem)
+    {
+	return "";
+    }
+    
+    @Override public String renderEnd(BibItem bibItem)
+    {
+		return "";
+    }
 }
     

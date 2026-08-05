@@ -18,7 +18,7 @@ import static java.util.Objects.*;
  * {@link #fromJson(String)}, and serves as the primary input for
  * {@link atessera.templ.PublicationTemplate}.</p>
  *
- * <h3>Supported publication types</h3>
+ * <h2>Supported publication types</h2>
  *
  * <p>Defined by the {@link Type} enum:</p>
  * <ul>
@@ -30,7 +30,7 @@ import static java.util.Objects.*;
  *   <li>{@link Type#BOOK BOOK} &mdash; a full book</li>
  * </ul>
  *
- * <h3>Supported section types</h3>
+ * <h2>Supported section types</h2>
  *
  * <p>Each {@link Section} within the publication has a
  * {@link SectionType} that determines how its source text is processed:</p>

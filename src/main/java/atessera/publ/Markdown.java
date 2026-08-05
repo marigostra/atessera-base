@@ -13,6 +13,7 @@ final class Markdown extends LatexTarget
     Markdown()
     {
 	super(EnumSet.of(
+			 			 LatexTarget.Features.SILENT_BIB_ITEMS,
 			 LatexTarget.Features.CITE,
 			 LatexTarget.Features.LABEL,
 			 LatexTarget.Features.REFERENCES,
@@ -23,7 +24,7 @@ final class Markdown extends LatexTarget
     {
 	return "\\cite{" + escapeRelaxed(citeRef.getRef() )+ "}";
     }
-    
+
     @Override public String render(Label label)
     {
 	return "\\label{" + escapeRelaxed(label.getLabel()) + "}\n\n";

@@ -112,16 +112,14 @@ public final class PublicationTemplate extends Base
      *               not be {@code null}
      * @return this template (for fluent chaining)
      */
-    public PublicationTemplate setBiblio(List<Map.Entry<String, String>> biblio)
+public PublicationTemplate setBiblio(List<Map.Entry<String, String>> biblio)
     {
 	context.put("BIBLIO", biblio.stream()
-	.map(e -> {
-		return "\\bibitem{" + escapeRelaxed(e.getKey()) + "}\n" +
-		escapeRelaxed(e.getValue()) + "\n";
-	    }).collect(joining("\n")));
+		    .map(e ->  e.getValue() + "\n")
+		    .collect(joining("\n")));
 	return this;
     }
-    
+        
     /**
      * Represents a section within a publication.
      *

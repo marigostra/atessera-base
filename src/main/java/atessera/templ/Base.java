@@ -5,11 +5,9 @@ package atessera.templ;
 
 import java.util.*;
 import java.io.*;
-//import lombok.*;
 
 import org.apache.velocity.*;
 import org.apache.velocity.exception.*;
-
 
 import static java.util.Objects.*;
 

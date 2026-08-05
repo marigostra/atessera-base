@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-// Copyright 2024-2025 Michael Pozhidaev <msp@luwrain.org>
+// Copyright 2024-2026 Michael Pozhidaev <msp@luwrain.org>
 
 package atessera.publ;
 
@@ -13,8 +13,8 @@ import atessera.markdown.blocks.*;
 
 import static java.util.Objects.*;
 import static java.util.stream.Collectors.*;
-import static atessera.util.IdStr.*;
 import static atessera.json.PublicationContent.*;
+import static atessera.util.IdStr.*;
 
 public final class HtmlTranslator implements AutoCloseable
 {

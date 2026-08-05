@@ -5,6 +5,7 @@ package atessera.publ;
 
 import java.util.*;
 import java.io.*;
+import org.apache.logging.log4j.*;
 
 import org.apache.velocity.app.*;
 import org.apache.velocity.*;
@@ -13,7 +14,6 @@ import org.apache.velocity.runtime.*;
 import org.apache.velocity.exception.*;
 import org.apache.velocity.runtime.resource.util.*;
 
-import atessera.comp.*;
 import atessera.json.*;
 import atessera.markdown.*;
 import atessera.templ.*;
@@ -26,36 +26,17 @@ import static atessera.util.LatexUtils.*;
 
 public final class TexTranslator
 {
-    static private final String
-	IMAGES_EXT = ".pdf";
+    static private final Logger log = LogManager.getLogger();
+    static private final String IMAGES_EXT = ".pdf";
 
     final EngineFactory engineFactory;
     final PublicationContent publ;
-    //    final Map<String, String> listings;
-    final List<Map.Entry<String, String>> biblio = new ArrayList<>();
     private final Markdown markdown = new Markdown();
 
     public TexTranslator(EngineFactory engineFactory, PublicationContent publ)
     {
 	this.engineFactory = requireNonNull(engineFactory, "engineFactory can't be null");
 	this.publ = requireNonNull(publ, "publ can't be null");
-	//	this.listings = listings;
-	//Collecting biblio
-	final var biblio = publ.getSections().stream()
-	.filter(e -> e.getType() == PublicationContent.SectionType.MARKDOWN)
-	.map(e -> {
-		final var p = new LatexTarget(EnumSet.of(LatexTarget.Features.CITE));
-		p.parse(e.getSource());
-		return p.biblio;
-	    })
-	.reduce((a, b) -> {var r = new HashMap<String, String>(a);r.putAll(b); return r;});
-	if (biblio.isPresent())
-	{
-	    this.biblio.addAll(biblio.get().entrySet().stream().toList());
-	    Collections.sort(this.biblio, (e1, e2)->{
-		    return onlyLettersAndDigits(e1.getValue()).toLowerCase().compareTo(onlyLettersAndDigits(e2.getValue()).toLowerCase());
-		});
-	}
     }
 
     public List<String> translate()
@@ -63,7 +44,15 @@ public final class TexTranslator
 	final var templ = new PublicationTemplate(engineFactory);
 	templ.setHeader(publ);
 	templ.setSections(translateSections());
-	templ.setBiblio(biblio);
+	final var biblio = new ArrayList<>(new BiblioExtractor().extract(publ.getSections())
+					   .entrySet()
+					   .stream()
+					   .toList());
+						   log.info("{} bibliography entries collected", biblio.size());
+	Collections.sort(biblio, (e1, e2)->{
+		return onlyLettersAndDigits(e1.getValue()).toLowerCase().compareTo(onlyLettersAndDigits(e2.getValue()).toLowerCase());
+	    });
+	templ.setBiblio(biblio);	    
 	if (publ.getAbs() != null && publ.getAbs().getType() != null)
 	{
 	    if (publ.getAbs().getType() == PublicationContent.SectionType.MARKDOWN)

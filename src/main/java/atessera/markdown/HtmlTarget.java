@@ -108,10 +108,10 @@ public class HtmlTarget extends RenderersBase
     {
     }
 
-    public String parse(String text)
-    {
-	final var b = new StringBuilder();
-	final var renderer = new HtmlRenderer.Builder()
+
+	public Renderer newRenderer(StringBuilder b)
+	{
+return new HtmlRenderer.Builder()
 	.attributeProviderFactory(c -> new AnchorAttributes())
 	.nodeRendererFactory(c -> new HtmlNodeRenderer(this, c){
 		@Override protected String onHeading(Heading heading, Map<String, String> attr) { return HtmlTarget.this.onHeading(heading.getLevel(), b); }
@@ -119,6 +119,12 @@ public class HtmlTarget extends RenderersBase
 	    })
 	.escapeHtml(false)
 	.build();
+    }
+
+	    public String parse(String text)
+	    {
+					final var b = new StringBuilder();
+		final var renderer = newRenderer(b);
 	final var doc = parser.parse(text);
 	if (features.contains(Features.CITE))
 	{

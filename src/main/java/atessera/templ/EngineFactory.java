@@ -3,8 +3,6 @@
 
 package atessera.templ;
 
-//https://velocity.apache.org/engine/1.7/developer-guide.html
-
 import java.util.*;
 import org.apache.logging.log4j.*;
 
@@ -89,24 +87,18 @@ public final class EngineFactory
     {
 	if (cached != null)
 	    return cached;
-
         final var engine = new VelocityEngine();
         Properties props = new Properties();
         props.setProperty("str.resource.loader.class", StringResourceLoader.class.getName());
-	        props.setProperty("str.resource.loader.cache", "true");
+	props.setProperty("str.resource.loader.cache", "true");
         props.setProperty(RuntimeConstants.RESOURCE_LOADER, "str");
-        
         props.setProperty("str.resource.loader.repository.name", "GlobalRepo");
         props.setProperty("str.resource.loader.repository.static", "true");
-        
         engine.init(props);
-
-		        final StringResourceRepository repo = StringResourceLoader.getRepository("GlobalRepo");
+	final StringResourceRepository repo = StringResourceLoader.getRepository("GlobalRepo");
         for(var e: templates.entrySet()) 
             repo.putStringResource(e.getKey(), e.getValue().stream().collect(joining("\n")));
-
         cached = engine;
         return engine;
     }
-
 }

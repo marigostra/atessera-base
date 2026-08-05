@@ -10,34 +10,32 @@ import org.commonmark.parser.block.*;
 import org.commonmark.text.Characters;
 import atessera.markdown.blocks.*;
 
-public class MultiBlockParser extends AbstractBlockParser
+public class  BibItemParser extends AbstractBlockParser
 {
-    private final MultiBlock block;
+    private final BibItem bibItem;
 
-    public MultiBlockParser(MultiBlock block)
+    public BibItemParser(BibItem bibItem)
     {
-        this.block = block;
+        this.bibItem = bibItem;
     }
 
     @Override public BlockContinue tryContinue(ParserState parserState)
     {
-        if (parserState.isBlank() || parserState.getIndent() >= 1)
+        if (parserState.isBlank() || parserState.getIndent() < 4)
 	                return BlockContinue.none();
-	if (parserState.getLine().getContent().charAt(parserState.getIndex()) == '>')
-	    return BlockContinue.atIndex(parserState.getIndex() + 1);
-		                return BlockContinue.none();
+	    return BlockContinue.atIndex(parserState.getNextNonSpaceIndex());
     }
 
     @Override public List<DefinitionMap<?>> getDefinitions()
     {
-        var map = new DefinitionMap<>(MultiBlock.class);
-        map.putIfAbsent(block.getLabel(), block);
+        var map = new DefinitionMap<>(BibItem.class);
+        map.putIfAbsent(bibItem.getLabel(), bibItem);
         return List.of(map);
     }
 
-    @Override public MultiBlock getBlock()
+    @Override public BibItem getBlock()
     {
-        return block;
+        return bibItem;
     }
 
     @Override public boolean isContainer()
@@ -47,6 +45,7 @@ public class MultiBlockParser extends AbstractBlockParser
     
     @Override public boolean canContain(Block childBlock)
     {
+	//FIXME: Only paragraphs
         return true;
     }
 }

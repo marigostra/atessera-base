@@ -18,7 +18,7 @@ import static java.util.Objects.*;
  * {@link #fromJson(String)}, and serves as the primary input for
  * {@link atessera.templ.PresentationTemplate}.</p>
  *
- * <h3>Supported frame types</h3>
+ * <h2>Supported frame types</h2>
  *
  * <p>Each {@link Frame} within the presentation has a {@link FrameType}
  * that determines how its source text is processed:</p>
@@ -42,7 +42,7 @@ import static java.util.Objects.*;
  *       (circo layout)</li>
  * </ul>
  *
- * <h3>Supported figure types</h3>
+ * <h2>Supported figure types</h2>
  *
  * <p>The {@link Figure} class describes standalone figures (independent of
  * a particular frame) with the following {@link FigureType}s:</p>

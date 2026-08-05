@@ -17,15 +17,16 @@ public class TexNodeRenderer implements NodeRenderer
     final Renderers renderers;
     final TexNodeRendererContext context;
     final TexWriter writer;
+    final boolean silentBibItems;
 	
-    public TexNodeRenderer(Renderers renderers, TexNodeRendererContext context)
+    public TexNodeRenderer(Renderers renderers, TexNodeRendererContext context, boolean silentBibItems)
     {
 	this.renderers = renderers;
 	this.context = context;
 	this.writer = context.getWriter();
+	this.silentBibItems = silentBibItems;
     }
 	
-    
     @Override public void render(Node node)
     {
 	if (node instanceof Heading h)
@@ -40,8 +41,12 @@ public class TexNodeRenderer implements NodeRenderer
 	    renderChildren(b);
 	    writer.write(renderers.renderEnd(b));
 	}
-	if (node instanceof CiteReference citeRef)
-	    writer.write(renderers.render(citeRef));
+				if (!silentBibItems && node instanceof BibItem bibItem)
+	{
+	    writer.write(renderers.renderBegin(bibItem));
+	    renderChildren(bibItem);
+	    writer.write(renderers.renderEnd(bibItem));
+	}
 	if (node instanceof MathDefinition math)
 	    writer.write(renderers.render(math));
 	if (node instanceof MathBlockDefinition math)
@@ -57,14 +62,13 @@ public class TexNodeRenderer implements NodeRenderer
 	return new HashSet<>(Arrays.asList(
 					   Heading.class,
 					   Reference.class,
+					   BibItem.class,
 					   MultiBlock.class,
-					   CiteReference.class,
 					   MathDefinition.class,
 					   MathBlockDefinition.class,
 					   Label.class));
     }
 
-    
     private void renderChildren(Node node)
     {
 	for(Node n = node.getFirstChild();n != null; n = n.getNext())
